@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Orders\Application\Validator\Order;
 
+use App\Orders\Application\Contract\Validator\Order\CreateOrderItemValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterface;
 use App\Orders\Application\Contract\Validator\ValidatorResponseInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
@@ -19,31 +20,24 @@ use Symfony\Component\Validator\Validation;
  *
  * @package  App\Orders\Application\Validator\Order
 */
-class CreateOrderCustomValidator implements CreateOrderValidatorInterface
+class CreateOrderValidator implements CreateOrderValidatorInterface
 {
 
 
     /**
      * @param ValidatorInterface $validator
     */
-    public function __construct(
-        protected ValidatorInterface $validator
-    )
+    public function __construct(protected ValidatorInterface $validator)
     {
     }
-
 
 
 
     /**
      * @inheritDoc
     */
-    public function validateCreateRequest(CreateOrderRequest $request): ValidatorResponseInterface
+    public function validateCreateOrderRequest(CreateOrderRequest $request): ValidatorResponseInterface
     {
-         $validator = Validation::createValidator();
-
-         $violations = $validator->validate($request);
-
-         return new ValidatorResponse($violations);
+         return new ValidatorResponse($this->validator->validate($request));
     }
 }
