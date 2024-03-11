@@ -30,7 +30,7 @@ class FindOrderUseCase implements FindOrderInterface
             return new FindOrderResponse();
 
         } catch (\Throwable $e) {
-
+             dd($e->getMessage());
         }
     }
 }
