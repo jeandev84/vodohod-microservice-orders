@@ -8,6 +8,7 @@ use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
 use App\Orders\Application\Contract\Validator\CreateOrderException;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderItemValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterface;
+use App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Domain\Manager\Order\OrderManagerInterface;
 
@@ -20,7 +21,7 @@ use App\Orders\Domain\Manager\Order\OrderManagerInterface;
  *
  * @package  App\Orders\Application\Validator\Order
 */
-class CreateOrderValidatorProcess
+class CreateOrderValidatorProcess implements CreateOrderValidatorProcessInterface
 {
 
         /**
@@ -41,10 +42,7 @@ class CreateOrderValidatorProcess
 
 
         /**
-         * @param CreateOrderRequest $request
-         * @return CreateOrderRequest
-         * @throws CreateOrderException
-         * @throws JsonErrorExceptionInterface
+         * @@inheritDoc
        */
        public function validationProcess(CreateOrderRequest $request): CreateOrderRequest
        {
