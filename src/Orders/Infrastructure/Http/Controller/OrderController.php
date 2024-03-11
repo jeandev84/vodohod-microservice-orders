@@ -65,8 +65,9 @@ class OrderController extends AbstractController
        #[Route(path: '/orders/{id}', methods: ['GET'], name: 'app.orders.show')]
        public function findOrder(int $id): Response
        {
-            $findOrderRequest  = new FindOrderRequest($id);
-            $findOrderResponse = $this->findOrderService->findOrder($findOrderRequest);
+            $findOrderResponse = $this->findOrderService->findOrder(
+                new FindOrderRequest($id)
+            );
 
             return $this->json($findOrderResponse, Response::HTTP_OK);
        }
