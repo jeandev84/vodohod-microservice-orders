@@ -60,10 +60,10 @@ class OrderController extends AbstractController
 
        /**
         * @param int $id
-        * @return Response
+        * @return JsonResponse
        */
        #[Route(path: '/orders/{id}', methods: ['GET'], name: 'app.orders.show')]
-       public function findOrder(int $id): Response
+       public function findOrder(int $id): JsonResponse
        {
             $findOrderResponse = $this->findOrderService->findOrder(
                 new FindOrderRequest($id)
