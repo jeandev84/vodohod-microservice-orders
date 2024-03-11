@@ -8,8 +8,10 @@ use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
 use App\Orders\Application\Contract\Validator\CreateOrderException;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderItemValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterface;
+use App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Output\CreateOrderResponse;
+use App\Orders\Application\Validator\Order\CreateOrderValidatorProcess;
 use App\Orders\Domain\Manager\Order\OrderManagerInterface;
 use Throwable;
 
@@ -28,14 +30,12 @@ class CreateOrderUseCase implements CreateOrderInterface
 
     /**
      * @param OrderManagerInterface $orderManager
-     * @param CreateOrderValidatorInterface $createOrderValidator
-     * @param CreateOrderItemValidatorInterface $createOrderItemValidator
+     * @param CreateOrderValidatorProcessInterface $createOrderValidatorProcess
      * @param JsonEncoderInterface $jsonEncoder
     */
     public function __construct(
         protected OrderManagerInterface $orderManager,
-        protected CreateOrderValidatorInterface $createOrderValidator,
-        protected CreateOrderItemValidatorInterface $createOrderItemValidator,
+        protected CreateOrderValidatorProcessInterface $createOrderValidatorProcess,
         protected JsonEncoderInterface $jsonEncoder
     )
     {
@@ -51,27 +51,10 @@ class CreateOrderUseCase implements CreateOrderInterface
         try {
 
             # Process validation order and items
-            $createOrderRequestValidator   = $this->createOrderValidator->validateCreateOrderRequest($request);
+            $request = $this->createOrderValidatorProcess->validationProcess($request);
 
-            if (!$createOrderRequestValidator->isValid()) {
-                throw new CreateOrderException(
-                    $this->jsonEncoder->encode($createOrderRequestValidator->getErrors())
-                );
-            }
-
-            foreach ($request->getCreateOrderItems() as $createOrderItem) {
-                $createOrderItemRequestValidator = $this->createOrderItemValidator->validateCreateOrderItemRequest(
-                    $createOrderItem
-                );
-                if (!$createOrderItemRequestValidator->isValid()) {
-                    throw new CreateOrderException(
-                        $this->jsonEncoder->encode($createOrderItemRequestValidator->getErrors())
-                    );
-                }
-            }
-
-
-            $order  = $this->orderManager->createOrderFromDto($request);
+            # Create order
+            $order   = $this->orderManager->createOrderFromDto($request);
 
             return CreateOrderResponse::createWithId($order->getId());
 
