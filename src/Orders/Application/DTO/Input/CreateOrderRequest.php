@@ -64,4 +64,22 @@ class CreateOrderRequest
 
         return $items;
     }
+
+
+
+
+
+    /**
+     * @param array $data
+     * @return static
+    */
+    public static function createFromArray(array $data): static
+    {
+        $parsedBody = new ParameterBag($data);
+
+        return new self(
+            $parsedBody->get('email'),
+            $parsedBody->get('cart', [])
+        );
+    }
 }

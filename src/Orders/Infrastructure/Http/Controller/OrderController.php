@@ -47,14 +47,9 @@ class OrderController extends AbstractController
        #[Route(path: '/orders', methods: ['POST'], name: 'app.create.orders')]
        public function createOrder(Request $request): JsonResponse
        {
-            $parsedBody = new ParameterBag($request->toArray());
-
-            $createOrderRequest  = new CreateOrderRequest(
-                 $parsedBody->get('email'),
-                 $parsedBody->get('cart', [])
+            $createOrderResponse = $this->createOrderService->createAndSendOrder(
+                CreateOrderRequest::createFromArray($request->toArray())
             );
-
-            $createOrderResponse = $this->createOrderService->createAndSendOrder($createOrderRequest);
 
             return $this->json($createOrderResponse, Response::HTTP_CREATED);
        }
