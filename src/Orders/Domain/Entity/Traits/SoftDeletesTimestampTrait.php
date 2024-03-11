@@ -22,7 +22,7 @@ trait SoftDeletesTimestampTrait
 {
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $deletedAt = null;
+    private ?DateTimeInterface $deletedAt = null;
 
 
     /**
