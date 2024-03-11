@@ -51,7 +51,10 @@ class OrderController extends AbstractController
                 CreateOrderRequest::createFromArray($request->toArray())
             );
 
-            return $this->json($createOrderResponse, Response::HTTP_CREATED);
+            return $this->json(
+                $createOrderResponse,
+                $createOrderResponse->statusCode
+            );
        }
 
 
@@ -69,6 +72,6 @@ class OrderController extends AbstractController
                 new FindOrderRequest($id)
             );
 
-            return $this->json($findOrderResponse, Response::HTTP_OK);
+            return $this->json($findOrderResponse, $findOrderResponse->statusCode);
        }
 }

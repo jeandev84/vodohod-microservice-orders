@@ -13,6 +13,7 @@ use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Output\CreateOrderResponse;
 use App\Orders\Application\Validator\Order\CreateOrderValidatorProcess;
 use App\Orders\Domain\Manager\Order\OrderManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 /**
@@ -56,10 +57,17 @@ class CreateOrderUseCase implements CreateOrderInterface
             # Create order
             $order   = $this->orderManager->createOrderFromDto($request);
 
-            return CreateOrderResponse::createWithId($order->getId());
+            return CreateOrderResponse::createWithId(
+                $order->getId(),
+      Response::HTTP_CREATED
+            );
 
         } catch (Throwable $e) {
-            return CreateOrderResponse::createWithError($e->getMessage());
+
+            return CreateOrderResponse::createWithError(
+                $e->getMessage(),
+      $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

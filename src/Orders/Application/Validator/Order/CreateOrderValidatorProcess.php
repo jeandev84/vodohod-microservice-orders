@@ -11,6 +11,7 @@ use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterfac
 use App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Domain\Manager\Order\OrderManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * CreateOrderValidatorProcess
@@ -51,7 +52,8 @@ class CreateOrderValidatorProcess implements CreateOrderValidatorProcessInterfac
 
            if (!$createOrderRequestValidator->isValid()) {
                throw new CreateOrderException(
-                   $this->jsonEncoder->encode($createOrderRequestValidator->getErrors())
+                   $this->jsonEncoder->encode($createOrderRequestValidator->getErrors()),
+             Response::HTTP_BAD_REQUEST
                );
            }
 
@@ -61,7 +63,8 @@ class CreateOrderValidatorProcess implements CreateOrderValidatorProcessInterfac
                );
                if (!$createOrderItemRequestValidator->isValid()) {
                    throw new CreateOrderException(
-                       $this->jsonEncoder->encode($createOrderItemRequestValidator->getErrors())
+                       $this->jsonEncoder->encode($createOrderItemRequestValidator->getErrors()),
+                 Response::HTTP_BAD_REQUEST
                    );
                }
            }

@@ -15,4 +15,14 @@ namespace App\Orders\Application\DTO\Output;
 class FindOrderResponse
 {
 
+    /**
+     * @param array $data
+     * @param int|null $statusCode
+    */
+    public function __construct(
+        public array $data = [],
+        public ?int $statusCode = null
+    )
+    {
+    }
 }

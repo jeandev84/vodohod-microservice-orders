@@ -24,6 +24,13 @@ class FindOrderUseCase implements FindOrderInterface
     */
     public function findOrder(FindOrderRequest $request): FindOrderResponse
     {
-         return new FindOrderResponse();
+        try {
+
+            // такое же процесс как CreateOrder, я создал FindOrder как другой пример
+            return new FindOrderResponse();
+
+        } catch (\Throwable $e) {
+
+        }
     }
 }
