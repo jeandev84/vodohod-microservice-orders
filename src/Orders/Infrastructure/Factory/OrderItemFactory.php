@@ -6,6 +6,7 @@ namespace App\Orders\Infrastructure\Factory;
 use App\Orders\Application\DTO\Input\Item\CreateOrderItemRequest;
 use App\Orders\Domain\Entity\OrderItem;
 use App\Orders\Domain\Factory\OrderItemFactoryInterface;
+use DateTimeImmutable;
 
 /**
  * OrderItemFactory
@@ -25,8 +26,8 @@ class OrderItemFactory implements OrderItemFactoryInterface
     public function createOrderItemFromDto(CreateOrderItemRequest $request): OrderItem
     {
          $orderItem = new OrderItem();
-         $orderItem->setIsbn($request->isbn)
-                   ->setCount($request->count);
-         return $orderItem;
+         return $orderItem->setIsbn($request->isbn)
+                          ->setCount($request->count)
+                          ->addTimestamps();
     }
 }

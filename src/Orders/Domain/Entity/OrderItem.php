@@ -38,8 +38,6 @@ class OrderItem implements HasTimestampInterface, SoftDeletesTimestampInterface
 
 
 
-
-
     /**
      * @return string|null
     */

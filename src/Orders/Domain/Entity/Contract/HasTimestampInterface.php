@@ -21,9 +21,9 @@ interface HasTimestampInterface
 
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeImmutable|null
     */
-    public function getCreatedAt(): ?DateTimeInterface;
+    public function getCreatedAt(): ?DateTimeImmutable;
 
 
 
@@ -39,9 +39,9 @@ interface HasTimestampInterface
 
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeImmutable|null
     */
-    public function getUpdatedAt(): ?DateTimeInterface;
+    public function getUpdatedAt(): ?DateTimeImmutable;
 
 
 
@@ -49,8 +49,15 @@ interface HasTimestampInterface
 
 
     /**
-     * @param DateTimeInterface|null $updatedAt
+     * @param DateTimeImmutable|null $updatedAt
      * @return $this
     */
-    public function setUpdatedAt(?DateTimeInterface $updatedAt): static;
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): static;
+
+
+
+    /**
+     * @return $this
+    */
+    public function addTimestamps(): static;
 }

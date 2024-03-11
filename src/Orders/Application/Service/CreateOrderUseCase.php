@@ -47,14 +47,13 @@ class CreateOrderUseCase implements CreateOrderInterface
     {
         try {
 
-            dd($request);
-
             # Process validation order and items
             $request = $this->createOrderValidatorProcess->validationProcess($request);
 
             # Create order
-            $order   = $this->orderManager->createOrderFromDto($request);
+            $order = $this->orderManager->createOrderFromDto($request);
 
+            # Send response
             return CreateOrderResponse::createWithId($order->getId());
 
         } catch (Throwable $e) {

@@ -27,7 +27,11 @@ class Order implements HasTimestampInterface, SoftDeletesTimestampInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'ordered')]
+    #[ORM\OneToMany(
+        targetEntity: OrderItem::class,
+        mappedBy: 'ordered',
+        cascade: ['persist', 'remove']
+    )]
     private Collection $orderItems;
 
 

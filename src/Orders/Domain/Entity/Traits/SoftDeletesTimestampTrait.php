@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Orders\Domain\Entity\Traits;
 
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,13 +23,13 @@ trait SoftDeletesTimestampTrait
 {
 
     #[ORM\Column(nullable: true)]
-    private ?DateTimeInterface $deletedAt = null;
+    private ?DateTimeImmutable $deletedAt = null;
 
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeImmutable|null
     */
-    public function getDeletedAt(): ?DateTimeInterface
+    public function getDeletedAt(): ?DateTimeImmutable
     {
          return $this->deletedAt;
     }
@@ -38,13 +39,24 @@ trait SoftDeletesTimestampTrait
 
 
     /**
-     * @param DateTimeInterface|null $deletedAt
+     * @param DateTimeImmutable|null $deletedAt
      * @return $this
      */
-    public function setDeletedAt(?DateTimeInterface $deletedAt): static
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): static
     {
         $this->deletedAt = $deletedAt;
 
         return $this;
+    }
+
+
+
+
+    /**
+     * @return $this
+     */
+    public function addSoftDeletesTimestamps(): static
+    {
+        return $this->setDeletedAt(new DateTimeImmutable());
     }
 }

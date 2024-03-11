@@ -37,7 +37,7 @@ class ValidatorResponse implements ValidatorResponseInterface
     */
     public function isValid(): bool
     {
-        return (0 !== $this->constraints->count());
+        return ($this->constraints->count() === 0);
     }
 
 
@@ -48,8 +48,19 @@ class ValidatorResponse implements ValidatorResponseInterface
      */
     public function getErrors(): array
     {
+        $errors = [];
+
+        foreach ($this->constraints as $constraint) {
+            $errors[] = $constraint->getMessage();
+        }
+
+        return $errors;
+
+        /*
+        //TODO code reviews
         return array_map(function (ConstraintViolationInterface $constraint) {
             return $constraint->getMessage();
-        }, (array)$this->constraints);
+        }, $this->constraints);
+        */
     }
 }

@@ -21,17 +21,25 @@ interface SoftDeletesTimestampInterface
 
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeImmutable|null
     */
-    public function getDeletedAt(): ?DateTimeInterface;
+    public function getDeletedAt(): ?DateTimeImmutable;
 
 
 
 
 
     /**
-     * @param DateTimeInterface|null $deletedAt
+     * @param DateTimeImmutable|null $deletedAt
      * @return $this
     */
-    public function setDeletedAt(?DateTimeInterface $deletedAt): static;
+    public function setDeletedAt(?DateTimeImmutable $deletedAt): static;
+
+
+
+
+    /**
+     * @return $this
+    */
+    public function addSoftDeletesTimestamps(): static;
 }

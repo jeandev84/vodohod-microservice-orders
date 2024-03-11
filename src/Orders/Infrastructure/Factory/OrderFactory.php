@@ -5,9 +5,9 @@ namespace App\Orders\Infrastructure\Factory;
 
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Domain\Entity\Order;
-use App\Orders\Domain\Entity\OrderItem;
 use App\Orders\Domain\Factory\OrderFactoryInterface;
 use App\Orders\Domain\Factory\OrderItemFactoryInterface;
+use DateTime;
 use DateTimeImmutable;
 
 /**
@@ -43,7 +43,6 @@ class OrderFactory implements OrderFactoryInterface
          foreach ($request->getCreateOrderItems() as $orderItem) {
              $order->addOrderItem($this->orderItemFactory->createOrderItemFromDto($orderItem));
          }
-         $order->setCreatedAt(new DateTimeImmutable());
-         return $order;
+         return $order->addTimestamps();
     }
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Orders\Domain\Entity\Traits;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,17 +19,17 @@ use Doctrine\ORM\Mapping as ORM;
 trait HasTimestampsTrait
 {
     #[ORM\Column]
-    private ?DateTimeInterface $createdAt = null;
+    private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?DateTimeInterface $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
 
 
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeImmutable|null
     */
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -37,10 +38,10 @@ trait HasTimestampsTrait
 
 
     /**
-     * @param DateTimeInterface|null $createdAt
+     * @param DateTimeImmutable|null $createdAt
      * @return $this
     */
-    public function setCreatedAt(?DateTimeInterface $createdAt): static
+    public function setCreatedAt(?DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -52,9 +53,9 @@ trait HasTimestampsTrait
 
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTimeImmutable|null
     */
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
@@ -64,13 +65,25 @@ trait HasTimestampsTrait
 
 
     /**
-     * @param DateTimeInterface|null $updatedAt
+     * @param DateTimeImmutable|null $updatedAt
      * @return $this
     */
-    public function setUpdatedAt(?DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+
+
+
+    /**
+     * @return $this
+    */
+    public function addTimestamps(): static
+    {
+         return $this->setCreatedAt(new DateTimeImmutable())
+                     ->setUpdatedAt(new DateTimeImmutable());
     }
 }
