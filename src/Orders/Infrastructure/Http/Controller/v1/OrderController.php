@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Orders\Infrastructure\Http\Controller;
+namespace App\Orders\Infrastructure\Http\Controller\v1;
 
 use App\Orders\Application\Contract\Actions\Order\CreateOrderInterface;
 use App\Orders\Application\Contract\Actions\Order\FindOrderInterface;
@@ -9,9 +9,7 @@ use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Input\FindOrderRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -21,7 +19,7 @@ use Symfony\Component\Routing\Attribute\Route;
  *
  * @license https://github.com/jeandev84/laventure-framework/blob/master/LICENSE
  *
- * @package  App\Orders\Infrastructure\Http\Controller
+ * @package  App\Orders\Infrastructure\Http\Controller\v1
 */
 class OrderController extends AbstractController
 {
@@ -44,9 +42,10 @@ class OrderController extends AbstractController
          * @param Request $request
          * @return JsonResponse
        */
-       #[Route(path: '/orders', methods: ['POST'], name: 'app.orders.create')]
+       #[Route(path: '/api/v1/orders', methods: ['POST'], name: 'app.v1.orders.create')]
        public function createOrder(Request $request): JsonResponse
        {
+            dd($request->toArray());
             $createOrderResponse = $this->createOrderService->createAndSendOrder(
                 CreateOrderRequest::createFromArray($request->toArray())
             );
@@ -65,7 +64,7 @@ class OrderController extends AbstractController
         * @param int $id
         * @return JsonResponse
        */
-       #[Route(path: '/orders/{id}', methods: ['GET'], name: 'app.orders.show')]
+       #[Route(path: '/api/v1/orders/{id}', methods: ['GET'], name: 'app.v1.orders.show')]
        public function findOrder(int $id): JsonResponse
        {
             $findOrderResponse = $this->findOrderService->findOrder(

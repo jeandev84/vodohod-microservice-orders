@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Orders\Application\DTO\Output;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * CreateOrderRequest
  *
@@ -28,19 +30,15 @@ class CreateOrderResponse
      }
 
 
-
-
-
      /**
       * @param int $id
-      * @param int|null $statusCode
       * @return static
      */
-     public static function createWithId(int $id, ?int $statusCode = null): static
+     public static function createWithId(int $id): static
      {
          $response = new self();
-         $response->orderId = $id;
-         $response->statusCode  = $statusCode;
+         $response->orderId    = $id;
+         $response->statusCode = Response::HTTP_CREATED;
          return $response;
      }
 
@@ -55,7 +53,7 @@ class CreateOrderResponse
      {
          $response = new self();
          $response->error = $error;
-         $response->statusCode = $statusCode;
+         $response->statusCode = $statusCode ?: Response::HTTP_INTERNAL_SERVER_ERROR;
          return $response;
      }
 }

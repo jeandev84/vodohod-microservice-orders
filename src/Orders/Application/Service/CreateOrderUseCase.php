@@ -8,7 +8,6 @@ use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
 use App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Output\CreateOrderResponse;
-use App\Orders\Application\Validator\Order\CreateOrderValidatorProcess;
 use App\Orders\Domain\Manager\Order\OrderManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -54,17 +53,11 @@ class CreateOrderUseCase implements CreateOrderInterface
             # Create order
             $order   = $this->orderManager->createOrderFromDto($request);
 
-            return CreateOrderResponse::createWithId(
-                $order->getId(),
-      Response::HTTP_CREATED
-            );
+            return CreateOrderResponse::createWithId($order->getId());
 
         } catch (Throwable $e) {
 
-            return CreateOrderResponse::createWithError(
-                $e->getMessage(),
-      $e->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
+            return CreateOrderResponse::createWithError($e->getMessage(), $e->getCode());
         }
     }
 }

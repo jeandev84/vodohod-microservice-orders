@@ -5,7 +5,7 @@ namespace App\Orders\Application\Validator\Order;
 
 
 use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
-use App\Orders\Application\Contract\Validator\CreateOrderException;
+use App\Orders\Application\Contract\Exceptions\Order\CreateOrderException;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderItemValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface;

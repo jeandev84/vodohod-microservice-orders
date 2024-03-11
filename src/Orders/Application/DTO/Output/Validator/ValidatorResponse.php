@@ -5,6 +5,7 @@ namespace App\Orders\Application\DTO\Output\Validator;
 
 
 use App\Orders\Application\Contract\Validator\ValidatorResponseInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -47,12 +48,8 @@ class ValidatorResponse implements ValidatorResponseInterface
      */
     public function getErrors(): array
     {
-        $errors = [];
-
-        foreach ($this->constraints as $constraint) {
-            $errors[] = $constraint->getMessage();
-        }
-
-        return $errors;
+        return array_map(function (ConstraintViolationInterface $constraint) {
+            return $constraint->getMessage();
+        }, (array)$this->constraints);
     }
 }

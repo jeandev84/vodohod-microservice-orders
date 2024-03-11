@@ -20,19 +20,33 @@ services:
             - '../src/Orders/Domain/Entity'
             - '../src/Orders/Application/'
             - '../src/Orders/Infrastructure/Http/Controller/'
+            - '../src/Orders/Infrastructure/Encoder/'
             - '../src/Orders/Infrastructure/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\Orders\Application\Service\CreateOrderUseCase: ~
-    App\Orders\Infrastructure\Encoder: ~
+    App\Orders\Application\Service\FindOrderUseCase: ~
     App\Orders\Application\Validator\Order\CreateOrderValidatorProcess: ~
     App\Orders\Application\Validator\Order\CreateOrderValidator: ~
     App\Orders\Application\Validator\Order\CreateOrderItemValidator: ~
+    App\Orders\Infrastructure\Http\Controller\v1\OrderController: ~
+    App\Orders\Infrastructure\Manager\OrderManager: ~
+    App\Orders\Infrastructure\Manager\OrderItemManager: ~
+    App\Orders\Infrastructure\Factory\OrderFactory: ~
+    App\Orders\Infrastructure\Factory\OrderItemFactory: ~
+    App\Orders\Infrastructure\Encoder\JsonEncoder: ~
 
+
+
+    App\Orders\Domain\Factory\OrderFactoryInterface: '@App\Orders\Infrastructure\Factory\OrderFactory'
+    App\Orders\Domain\Factory\OrderItemFactoryInterface: '@App\Orders\Infrastructure\Factory\OrderItemFactory'
+    App\Orders\Domain\Manager\Order\OrderManagerInterface: '@App\Orders\Infrastructure\Manager\OrderManager'
+    App\Orders\Domain\Manager\Order\OrderItemManagerInterface: '@App\Orders\Infrastructure\Manager\OrderItemManager'
     App\Orders\Application\Contract\Actions\Order\CreateOrderInterface: '@App\Orders\Application\Service\CreateOrderUseCase'
+    App\Orders\Application\Contract\Actions\Order\FindOrderInterface: '@App\Orders\Application\Service\FindOrderUseCase'
     App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface: '@App\Orders\Application\Validator\Order\CreateOrderValidatorProcess'
-    App\Orders\Application\Contract\Encoder\JsonEncoderInterface: '@App\Orders\Infrastructure\Encoder'
+    App\Orders\Application\Contract\Encoder\JsonEncoderInterface: '@App\Orders\Infrastructure\Encoder\JsonEncoder'
     App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterface: '@App\Orders\Application\Validator\Order\CreateOrderValidator'
     App\Orders\Application\Contract\Validator\Order\CreateOrderItemValidatorInterface: '@App\Orders\Application\Validator\Order\CreateOrderItemValidator'
