@@ -20,13 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateOrderRequest
 {
 
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: "Email Address required.")]
+    #[Assert\Email(message: "Invalid Email Address")]
     public string $email;
 
 
-    /**
-     * @var array
-    */
+    #[Assert\NotBlank(message: "Cart item required.")]
     public array $cart = [];
 
 

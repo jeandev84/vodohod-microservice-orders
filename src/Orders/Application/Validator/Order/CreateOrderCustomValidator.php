@@ -7,7 +7,10 @@ use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterfac
 use App\Orders\Application\Contract\Validator\ValidatorResponseInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Output\Validator\ValidatorResponse;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validation;
 
 /**
  * CreateOrderCustomValidator
@@ -39,8 +42,10 @@ class CreateOrderCustomValidator implements CreateOrderValidatorInterface
     */
     public function validateCreateRequest(CreateOrderRequest $request): ValidatorResponseInterface
     {
-         // TODO map errors if exists and send them
+         $validator = Validation::createValidator();
 
-         return new ValidatorResponse([]);
+         $violations = $validator->validate($request);
+
+         return new ValidatorResponse($violations);
     }
 }
