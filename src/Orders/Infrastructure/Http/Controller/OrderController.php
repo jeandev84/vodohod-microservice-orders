@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * OrderController
@@ -42,6 +43,7 @@ class OrderController extends AbstractController
        */
        # В симфони есть возможность инжектить сам DTO (CreateOrderRequest) и настроивать но это через какие-то бандл
        # я по простому решил делать чтобы ничего не усложнать :)
+       #[Route(path: '/', methods: ['POST'], name: 'app.create.orders')]
        public function createOrder(Request $request): JsonResponse
        {
             $parsedBody = new ParameterBag($request->toArray());
