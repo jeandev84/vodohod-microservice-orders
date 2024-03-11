@@ -45,7 +45,6 @@ class OrderController extends AbstractController
        #[Route(path: '/api/v1/orders', methods: ['POST'], name: 'app.v1.orders.create')]
        public function createOrder(Request $request): JsonResponse
        {
-            dd($request->toArray());
             $createOrderResponse = $this->createOrderService->createAndSendOrder(
                 CreateOrderRequest::createFromArray($request->toArray())
             );

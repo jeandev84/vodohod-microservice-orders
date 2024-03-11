@@ -41,7 +41,7 @@ class CreateOrderRequest
     )
     {
         $this->email = $email;
-        $this->cart  = $cart;
+        $this->cart  = $this->convertCartItems($cart);
     }
 
 
@@ -52,17 +52,7 @@ class CreateOrderRequest
     */
     public function getCreateOrderItems(): array
     {
-        $items = [];
-
-        foreach ($this->cart as $cart) {
-           $parameterBag = new ParameterBag($cart);
-           $items[] = new CreateOrderItemRequest(
-               $parameterBag->get('isbn'),
-               $parameterBag->getInt('count')
-           );
-        }
-
-        return $items;
+        return $this->cart;
     }
 
 
@@ -81,5 +71,23 @@ class CreateOrderRequest
             $parsedBody->get('email'),
             $parsedBody->get('cart', [])
         );
+    }
+
+
+
+
+    /**
+     * @param array $cart
+     * @return array
+    */
+    private function convertCartItems(array $cart): array
+    {
+        return array_map(function ($item) {
+            $parameterBag = new ParameterBag($item);
+            return new CreateOrderItemRequest(
+                $parameterBag->get('isbn'),
+                $parameterBag->getInt('count')
+            );
+        }, $cart);
     }
 }

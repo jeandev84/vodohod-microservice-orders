@@ -47,6 +47,8 @@ class CreateOrderUseCase implements CreateOrderInterface
     {
         try {
 
+            dd($request);
+
             # Process validation order and items
             $request = $this->createOrderValidatorProcess->validationProcess($request);
 
