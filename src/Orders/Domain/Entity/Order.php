@@ -1,6 +1,8 @@
 <?php
 namespace App\Orders\Domain\Entity;
 
+use App\Orders\Domain\Entity\Contract\HasTimestampInterface;
+use App\Orders\Domain\Entity\Contract\SoftDeletesTimestampInterface;
 use App\Orders\Domain\Entity\Traits\HasTimestampsTrait;
 use App\Orders\Domain\Entity\Traits\SoftDeletesTimestampTrait;
 use App\Orders\Infrastructure\Repository\OrderRepository;
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
-class Order
+class Order implements HasTimestampInterface, SoftDeletesTimestampInterface
 {
 
     use HasTimestampsTrait;
