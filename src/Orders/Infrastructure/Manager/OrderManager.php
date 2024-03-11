@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace App\Orders\Infrastructure\Manager;
 
+use App\Orders\Application\DTO\Input\CreateOrderRequest;
+use App\Orders\Domain\Entity\Order;
+use App\Orders\Domain\Factory\OrderFactoryInterface;
+use App\Orders\Domain\Manager\Order\OrderManagerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * OrderManager
  *
@@ -12,9 +18,43 @@ namespace App\Orders\Infrastructure\Manager;
  *
  * @package  App\Orders\Application\Manager
 */
-class OrderManager
+class OrderManager implements OrderManagerInterface
 {
-     public function __construct()
+
+     /**
+      * @param EntityManagerInterface $em
+      * @param OrderFactoryInterface $orderFactory
+     */
+     public function __construct(
+         protected EntityManagerInterface $em,
+         protected OrderFactoryInterface $orderFactory
+     )
      {
+     }
+
+
+
+     /**
+      * @inheritDoc
+     */
+     public function createOrderFromDto(CreateOrderRequest $request): Order
+     {
+          return $this->saveOrderFromEntity(
+              $this->orderFactory->createOrderFromDto($request)
+          );
+     }
+
+
+
+
+
+     /**
+      * @inheritDoc
+     */
+     public function saveOrderFromEntity(Order $order): Order
+     {
+        $this->em->persist($order);
+        $this->em->flush();
+        return $order;
      }
 }

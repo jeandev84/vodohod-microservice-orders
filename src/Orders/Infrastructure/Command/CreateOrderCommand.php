@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Orders\Infrastructure\Command;
 
-use App\Orders\Application\Contract\Order\CreateOrderInterface;
+use App\Orders\Application\Contract\Actions\Order\CreateOrderInterface;
+use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -27,8 +28,12 @@ class CreateOrderCommand extends Command
 
     /**
      * @param CreateOrderInterface $createOrderService
+     * @param JsonEncoderInterface $jsonEncoder
     */
-    public function __construct(protected CreateOrderInterface $createOrderService)
+    public function __construct(
+        protected CreateOrderInterface $createOrderService,
+        protected JsonEncoderInterface $jsonEncoder
+    )
     {
         parent::__construct(self::$defaultName);
     }
@@ -53,13 +58,12 @@ class CreateOrderCommand extends Command
 
             $createOrderRequest = new CreateOrderRequest(
                 $input->getArgument('email'),
-                json_decode($input->getArgument('cart'), true)
+                $this->jsonEncoder->decode($input->getArgument('cart'))
             );
 
             $createOrderResponse = $this->createOrderService->createAndSendOrder($createOrderRequest);
 
-            $output->writeln($createOrderResponse->getOrderId());
-            $output->writeln($createOrderResponse->getError());
+            $output->writeln($createOrderResponse->orderId);
 
             return Command::SUCCESS;
 

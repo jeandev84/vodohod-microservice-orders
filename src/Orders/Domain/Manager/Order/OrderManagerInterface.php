@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Orders\Infrastructure\Manager;
+namespace App\Orders\Domain\Manager\Order;
 
 
+use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Domain\Entity\Order;
 
 /**
@@ -19,7 +20,18 @@ interface OrderManagerInterface
 {
 
      /**
+      * @param CreateOrderRequest $request
       * @return Order
      */
-     public function createUserFromDto(): Order;
+     public function createOrderFromDto(CreateOrderRequest $request): Order;
+
+
+
+
+
+     /**
+      * @param Order $order
+      * @return Order
+     */
+     public function saveOrderFromEntity(Order $order): Order;
 }

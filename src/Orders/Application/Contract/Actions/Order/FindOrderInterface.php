@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Orders\Application\Contract\Order;
+namespace App\Orders\Application\Contract\Actions\Order;
 
 
 use App\Orders\Application\DTO\Input\FindOrderRequest;

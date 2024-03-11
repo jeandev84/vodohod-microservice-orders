@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Http\Controller;
 
-use App\Orders\Application\Contract\Order\CreateOrderInterface;
-use App\Orders\Application\Contract\Order\FindOrderInterface;
+use App\Orders\Application\Contract\Actions\Order\CreateOrderInterface;
+use App\Orders\Application\Contract\Actions\Order\FindOrderInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Input\FindOrderRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,11 +44,11 @@ class OrderController extends AbstractController
        # я по простому решил делать чтобы ничего не усложнать :)
        public function createOrder(Request $request): JsonResponse
        {
-            $parsedBody = $request->toArray();
+            $parsedBody = new ParameterBag($request->toArray());
 
             $createOrderRequest  = new CreateOrderRequest(
-               $parsedBody['email'] ?? null,
-                $parsedBody['cart'] ?? []
+                 $parsedBody->get('email'),
+                 $parsedBody->get('cart', [])
             );
 
             $createOrderResponse = $this->createOrderService->createAndSendOrder($createOrderRequest);

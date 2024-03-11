@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Orders\Application\Service;
 
-use App\Orders\Application\Contract\Order\FindOrderInterface;
+use App\Orders\Application\Contract\Actions\Order\FindOrderInterface;
 use App\Orders\Application\DTO\Input\FindOrderRequest;
 use App\Orders\Application\DTO\Output\FindOrderResponse;
 

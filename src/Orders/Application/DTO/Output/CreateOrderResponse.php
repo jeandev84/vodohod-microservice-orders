@@ -19,31 +19,36 @@ class CreateOrderResponse
       * @param string|null $error
      */
      public function __construct(
-         protected ?int $orderId = null,
-         protected ?string $error = null
+         public ?int $orderId = null,
+         public ?string $error = null
      )
      {
      }
 
 
-
      /**
-      * @return int|null
+      * @param int $id
+      * @return static
      */
-     public function getOrderId(): ?int
+     public static function createWithId(int $id): static
      {
-         return $this->orderId;
+         $response = new self();
+         $response->orderId = $id;
+         return $response;
      }
 
 
 
 
 
-    /**
-     * @return string|null
-    */
-    public function getError(): ?string
-    {
-        return $this->error;
-    }
+     /**
+      * @param string $error
+      * @return static
+     */
+     public static function createWithError(string $error): static
+     {
+         $response = new self();
+         $response->error = $error;
+         return $response;
+     }
 }

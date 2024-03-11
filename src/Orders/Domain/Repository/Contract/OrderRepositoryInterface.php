@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Orders\Domain\Contract;
+namespace App\Orders\Domain\Repository\Contract;
 #use App\Orders\Domain\Entity\Order;
 use App\Orders\Domain\Entity\Order;
 

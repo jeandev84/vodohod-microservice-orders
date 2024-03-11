@@ -1,8 +1,8 @@
 <?php
 namespace App\Orders\Infrastructure\Repository;
 
-use App\Orders\Domain\Contract\OrderItemRepositoryInterface;
 use App\Orders\Domain\Entity\OrderItem;
+use App\Orders\Domain\Repository\Contract\OrderItemRepositoryInterface;
 use App\Orders\Infrastructure\Repository\Exceptions\OrderItemNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

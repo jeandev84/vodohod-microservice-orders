@@ -35,6 +35,19 @@ class Order
         $this->orderItems = new ArrayCollection();
     }
 
+
+
+
+    /**
+     * @return int|null
+    */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+
+
     public function getEmail(): ?string
     {
         return $this->email;

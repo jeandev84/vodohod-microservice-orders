@@ -13,7 +13,11 @@ class OrderItem
     private ?int $id = null;
 
     #[ORM\Column]
+    private ?string $isbn = null;
+
+    #[ORM\Column]
     private ?int $count = null;
+
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -32,6 +36,35 @@ class OrderItem
     {
         return $this->id;
     }
+
+
+
+
+
+    /**
+     * @return string|null
+    */
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+
+
+
+    /**
+     * @param string|null $isbn
+     * @return $this
+    */
+    public function setIsbn(?string $isbn): static
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
+
+
+
 
     public function getCount(): ?int
     {
