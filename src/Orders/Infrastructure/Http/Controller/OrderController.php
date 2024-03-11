@@ -44,7 +44,7 @@ class OrderController extends AbstractController
          * @param Request $request
          * @return JsonResponse
        */
-       #[Route(path: '/orders', methods: ['POST'], name: 'app.create.orders')]
+       #[Route(path: '/orders', methods: ['POST'], name: 'app.orders.create')]
        public function createOrder(Request $request): JsonResponse
        {
             $createOrderResponse = $this->createOrderService->createAndSendOrder(
