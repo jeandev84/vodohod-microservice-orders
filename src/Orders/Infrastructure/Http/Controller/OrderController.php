@@ -67,6 +67,7 @@ class OrderController extends AbstractController
         * @param int $id
         * @return Response
        */
+       #[Route(path: '/orders/{id}', methods: ['GET'], name: 'app.orders.show')]
        public function findOrder(int $id): Response
        {
             $findOrderRequest  = new FindOrderRequest($id);

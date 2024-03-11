@@ -7,8 +7,6 @@ use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterfac
 use App\Orders\Application\Contract\Validator\ValidatorResponseInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
 use App\Orders\Application\DTO\Output\Validator\ValidatorResponse;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Validation;
 
