@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Controller;
+namespace App\Orders\Infrastructure\Http\Controller;
 
 use App\Orders\Application\Contract\Actions\Order\CreateOrderInterface;
 use App\Orders\Application\Contract\Actions\Order\FindOrderInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
  *
  * @license https://github.com/jeandev84/laventure-framework/blob/master/LICENSE
  *
- * @package  App\Infrastructure\Http\Controller
+ * @package  App\Orders\Infrastructure\Http\Controller
 */
 class OrderController extends AbstractController
 {
