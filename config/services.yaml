@@ -24,3 +24,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Orders\Application\Service\CreateOrderUseCase: ~
+    App\Orders\Infrastructure\Encoder: ~
+    App\Orders\Application\Validator\Order\CreateOrderValidatorProcess: ~
+
+    App\Orders\Application\Contract\Actions\Order\CreateOrderInterface: '@App\Orders\Application\Service\CreateOrderUseCase'
+    App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface: '@App\Orders\Application\Validator\Order\CreateOrderValidatorProcess'
+    App\Orders\Application\Contract\Encoder\JsonEncoderInterface: '@App\Orders\Infrastructure\Encoder'
+    App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface: '@App\Orders\Infrastructure\Encoder'

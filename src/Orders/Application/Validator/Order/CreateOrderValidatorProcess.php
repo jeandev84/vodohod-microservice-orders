@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Orders\Application\Validator\Order;
 
-use App\Orders\Application\Contract\Encoder\Exception\JsonErrorExceptionInterface;
+
 use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
 use App\Orders\Application\Contract\Validator\CreateOrderException;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderItemValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\CreateOrderValidatorInterface;
 use App\Orders\Application\Contract\Validator\Order\Process\CreateOrderValidatorProcessInterface;
 use App\Orders\Application\DTO\Input\CreateOrderRequest;
-use App\Orders\Domain\Manager\Order\OrderManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
