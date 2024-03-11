@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Orders\Infrastructure\Encoder;
 
-use Encoder\JsonEncoderInterface;
+
+use App\Orders\Application\Contract\Encoder\JsonEncoderInterface;
 
 /**
  * JsonEncoder
